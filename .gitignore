@@ -9,6 +9,6 @@ artifacts
 artifacts
 artifacts-old
 .idea
-app/lt.log
+docs/lt.log
 .hyperexecute
 hyperexecute-cli.log
