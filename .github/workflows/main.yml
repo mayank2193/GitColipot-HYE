@@ -30,6 +30,4 @@ jobs:
         run: |
               curl https://downloads.lambdatest.com/hyperexecute/linux/hyperexecute -o hyperexecute
               chmod u+x hyperexecute
-              export LT_USERNAME=${{ github.event.inputs.username }}
-              export LT_ACCESS_KEY=${{ github.event.inputs.accessKey }}
-              ./hyperexecute --user $LT_USERNAME --key $LT_ACCESS_KEY --config .hyperexecute.yaml
+              ./hyperexecute --user ${{ github.event.inputs.username }} --key ${{ github.event.inputs.accessKey }} --config yaml/win/cucumber_hyperexecute_matrix_sample.yaml 
