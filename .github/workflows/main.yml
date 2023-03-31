@@ -1,0 +1,35 @@
+name: GHA Pipeline
+on:
+  workflow_dispatch:
+    inputs:
+      username:
+        required: true
+        description: LT Username
+      accessKey:
+        description: LT Access Key
+        required: true
+
+env:
+    NODE_VERSION: 16
+jobs:
+  executeE2eTests:
+    name: Execute E2E Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@main
+
+      - name: Setup Node ${{ env.NODE_VERSION }} Environment
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Starting CLI testing
+        shell: bash
+        run: |
+              curl https://downloads.lambdatest.com/hyperexecute/linux/hyperexecute -o hyperexecute
+              chmod u+x hyperexecute
+              export LT_USERNAME=${{ github.event.inputs.username }}
+              export LT_ACCESS_KEY=${{ github.event.inputs.accessKey }}
+              ./hyperexecute --user $LT_USERNAME --key $LT_ACCESS_KEY --config .hyperexecute.yaml
